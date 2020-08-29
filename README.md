@@ -79,8 +79,7 @@ if USE_TF:
 
 def predict():
 	if USE_TF:
-    
-
+    #code
 	else:
     result = np.random.randn(1,len(style_name))
     pred_class=np.argmax(result)
