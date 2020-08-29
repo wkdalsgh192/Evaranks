@@ -1,0 +1,248 @@
+{% extends "basic.html" %}
+{% block content %}
+
+<div class="main">
+  <section class="click-section" id="click-section-0">
+    <div id="modal" class="hidden">
+      <div class="modal-content">
+        <h2>Eva's Diary</h2>
+        <p>I remember, I remember everything...<br>
+          Based on a research conducted in Tokyo, I was first designed in Seoul, Korea. <br>
+          If you want to know about it, click the link below and take a look at the fine article. <br>
+          You can download tons of images stashed in my brain for free. Hallelujah! (not for a commercial use) <br>
+          Two nerds made me - one who has got a skyblue oxford shirts and the other looks like a giraffe. <br>
+          If you have any question or feedback to them, feel free to shoot an email: wkdalsgh192@korea.ac.kr <br>
+        </p>
+        <div class='global-buttons'>
+          <a href="#" class="button2" onclick="hide(evaIntro)">Exit
+            <span></span><span></span><span></span><span></span>
+          </a>
+        </div>
+      </div>
+      <div class="modal-layer"></div>
+    </div>
+    <div class="eva-says">
+      <img id='eva-face-0' class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" onclick="show(evaIntro);">
+      <div class="title speech-bubble" id='first-title'>
+        <h2 class="section-title anim-typewriterTitle">Hello, stranger! Kr</h2>
+        <p  class='main-text test line-1 anim-typewriterTitle1'>I'm your personal stylist AI, Eva. </p>
+        <p  class='main-text test line-1 anim-typewriterTitle2'>First, upload your picture in the box.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <input id="file-upload" class="hidden" type="file" accept="image/x-png,image/gif,image/jpeg" />
+      <label for="file-upload" id="file-drag" class="upload-box">
+        <div id="upload-caption">Drop image here or click to select</div>
+        <img id="image-preview" class="hidden"/>
+      </label>
+    </div>
+    <div class='global-buttons'>
+      <a href="#" id="clear-btn" class="button2" onclick="clearImage()">Clear
+        <span></span><span></span><span></span><span></span>
+      </a>
+      <a href="#" id="next-btn" class="button2" onclick="changeSection()">Next
+        <span></span><span></span><span></span><span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="click-section" id="click-section-1">
+    <div class="eva-says">
+      <img class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" alt="">
+      <div class="title hidden speech-bubble" id='second-title'>
+        <h2 class="section-title">Please Select Your Gender</h2>
+        <p  class='main-text test line-1'></p>
+        <p  class='main-text test line-1'></p>
+      </div>
+    </div>
+    <div class="gender-selection">
+      <input type="radio" name="gender" clss="gender-box" id="male" value="male" checked="checked"><label for="male">
+        <span style="font-size: 6vmin"><i class="fas fa-male"></i></span>남성</label>
+      <input type="radio" name="gender" class="gender-box" id="female" value="female"><label for="female">
+        <span style="font-size: 6vmin"><i class="fas fa-female"></i></span>여성</label>
+    </div>
+    
+    <div class='global-buttons'>
+      <a href="#" id="next-btn" class="button2" onclick="event.preventDefault();changeSection();">Next
+        <span></span><span></span><span></span><span></span>      
+      </a>
+    </div>
+  </section>
+
+  <section class="click-section" id="click-section-2">
+    <div class="eva-says">
+      <img class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" alt="">
+      <div class="title hidden speech-bubble" id='second-title'>
+        <h2 class="section-title">Great!</h2>
+        <p  class='main-text test line-1'> Next, select one of the pictures </p>
+        <p  class='main-text test line-1'> similar to your fashion.</p>
+      </div>
+    </div>
+    <div id="class-choice">
+    </div>
+
+    <div id="class-table">
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/business_casual.jpg') }}" alt="">
+        <p class="class-text">Business Casual</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/street.jpg') }}" alt="">
+        <p class="class-text">Street</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/casual.jpg') }}" alt="">
+        <p class="class-text">Casual</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/british_mode.jpg') }}" alt="">
+        <p class="class-text">British Mode</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/girlish.jpg') }}" alt="">
+        <p class="class-text">Girlish</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/retro.jpg') }}" alt="">
+        <p class="class-text">80s Retro</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/feminine.jpg') }}" alt="">
+        <p class="class-text">Feminine</p>
+      </div>
+      <div class="class-box">
+        <i class="fas fa-check-circle hidden"></i>
+        <img src="{{ url_for('static', filename='image/traditional.jpg') }}" alt="">
+        <p class="class-text">Traditional</p>
+      </div>
+    </div>
+    <div class='global-buttons'>
+      <a href="#" id="next-btn" class="button2" onclick="event.preventDefault();submitImage();">Submit
+        <span></span><span></span><span></span><span></span>      
+      </a>
+    </div>
+  </section>
+  
+  <section class="click-section" id="click-section-3">
+    <div class="eva-says">
+      <img class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" alt="">
+      <div class="title hidden speech-bubble" id='second-title'>
+        <h2 class="section-title">Done!</h2>
+        <p  class='main-text test line-1'> I classified your fashion style!</p>
+        <p  class='main-text test line-1'> Red has more weights than blue.</p>
+      </div>
+    </div>
+    <div id="loader" class="hidden">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+      </svg>
+      <p class='main-text line-1 anim-typewriter'>Eva is analyzing your fashion style...</p>
+    </div>
+    <div id="image-box">
+      <img id="image-display" />
+    </div>
+    <div class='global-buttons'>
+      <a href="#" id="next-btn" class="button2" onclick="event.preventDefault();changeSection();">Next
+        <span></span><span></span><span></span><span></span>      
+      </a>
+    </div>
+  </section>
+  
+  <section class="click-section" id="click-section-4">
+    <article class="eva-says">
+      <img class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" alt="">
+      <div class="title hidden speech-bubble" id='second-title'>
+        <h2 class="section-title">Wait!</h2>
+        <p  class='main-text test line-1'> Share your pic on our Leaderboard. </p>
+        <p  class='main-text test line-1'> Join a competition for a free drink!</p>
+      </div>
+    </article>
+    <article class="style-result">
+      <div class="left-section">
+        <img id="image-result" class="hidden" src=""/>
+          <div id="pred-result1" class="pred-result">
+            <p></p>
+            <p></p>
+          </div>
+      </div>
+      <div class="right-section">
+        <div class="style-description">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis lectus at arcu malesuada, vitae ultricies sem dignissim. Pellentesque tincidunt eget tellus vel vestibulum. Donec vulputate nibh nec venenatis tempor. Sed at est nec purus vehicula maximus. Donec commodo velit ac elit mattis, sed volutpat orci elementum. Morbi accumsan, velit sit amet ullamcorper dignissim, ipsum ligula ultricies nunc, non pulvinar lectus metus eget risus. Aliquam semper neque non lorem malesuada posuere. Proin elit justo, scelerisque vitae augue at, imperdiet rhoncus tellus. Sed non vestibulum ante. Vivamus non massa vehicula, dictum magna quis, placerat sapien. Nam eu nisi imperdiet, dapibus mauris nec, lobortis odio. Curabitur pretium, quam et finibus suscipit, sapien ante accumsan lorem, sed tempus arcu est vel neque. Ut lobortis ex mi, ac fringilla purus efficitur vitae. Integer quam velit, efficitur at tincidunt et, luctus ac sapien.</p> 
+        </div>
+        <div class="related-images">
+          <img src="{{ url_for('static', filename='image/result/mods_look.jpg') }}"  alt="">
+          <img src="{{ url_for('static', filename='image/result/mods_look3.jpg')}}" alt="">
+        </div>
+      </div>
+    </article>
+    <div class='global-buttons'>
+      <a href="#" id="next-btn" class="button2" onclick= "event.preventDefault();changeSection();">Next
+        <span></span><span></span><span></span><span></span>      
+      </a>
+    </div>
+  </section>
+  
+  <section class="click-section" id="click-section-5">
+    <div class="eva-says">
+      <img class='eva-face' src="{{ url_for('static', filename='image/eva.png')}}" alt="">
+      <div class="title hidden speech-bubble" id='second-title'>
+        <h2 class="section-title">패션에 맞는 옷 추천</h2>
+        <p  class='main-text test line-1'> 옷을 추천해드립니다31</p>
+        <p  class='main-text test line-1'> 이 옷을 구매해 보세요</p>
+      </div>
+    </div>
+
+    <div class="coupang-ad">
+      <div class="coupang-item-container">
+
+        <div class="coupang-item">
+          <a href="https://coupa.ng/bENGHm" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/ca9249b95047afbf3379add638f5fc8e@2x.jpg" alt="홀리버니 여성용 스퀘어팁 앤 스트랩 레더 블로퍼 CM1307" width="120" height="240"></a>
+      </div>
+      <div class="coupang-item">       
+          <a href="https://coupa.ng/bENGZv" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/670172a41ca61fdab615497e8fbe5fb1@2x.jpg" alt="빼빼 로즈플라워 러플 롱원피스" width="120" height="240"></a>
+      </div>
+      <div class="coupang-item">       
+          <a href="https://coupa.ng/bENG3i" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/a13a9ddfcd4f63a7d90143f0b284ae6a@2x.jpg" alt="봄소풍 여성원피스 린넨원피스 러블리원피스 빅사이즈원피스 55~77반" width="120" height="240"></a>
+        </div>
+      <div class="coupang-item"> 
+          <a href="https://coupa.ng/bENG7L" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/7054aadc42467eef3fe92e0590b8cd38@2x.jpg" alt="이힝 러블리 밴딩 퍼프 반팔 여름 루즈핏 롱원피스" width="120" height="240"></a>
+      </div>
+
+      </div>
+
+      <div class="coapang-text-container">
+        <p id="coupang-text">파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있음</p>
+      </div>
+    </div>
+    <div class='global-buttons'>
+      <a href="{{url_for('rank.rank')}}" class="button2">Again
+        <span></span><span></span><span></span><span></span>      
+      </a>
+      <a href="{{url_for('lookbook.main')}}" class="button2">Leaderboard
+        <span></span><span></span><span></span><span></span>      
+      </a>
+    </div>
+  </section>
+
+
+    <div class="button-container">
+      <a id="kakao-link-btn" href="javascript:;">
+        <img style="height:51px" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+      </a>
+    </div>
+  
+
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='rank/rank.js') }}"></script>
+
+
+
+
+{% endblock content %}

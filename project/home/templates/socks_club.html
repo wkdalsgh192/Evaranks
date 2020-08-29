@@ -1,0 +1,16 @@
+{% extends "basic.html" %}
+{% block content %}
+
+	<div id="app">
+	  <header id="header" class="index-page">
+			<div class="header-contents">
+			  <h2 class = "header-highlight">A.I. Eva <br> Recognizes <br> Your Fashion Style</h2>
+			  <button class="header-button">
+				<a href="{{url_for('rank.rank')}}">Check it out</a>
+			  </button>
+			</div>
+	  </header>
+	</div>
+		<footer></footer>
+
+{% endblock content %}

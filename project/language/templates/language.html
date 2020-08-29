@@ -1,0 +1,34 @@
+{% extends "basic.html" %}
+{% block content %}
+
+<div class="main" role="main">
+    <header class="section">
+        <div class="section-content">
+            <h1 class="typo-headline-reduced">Choose your language</h1>        
+        </div>
+    </header>
+    <section class="section section-langs">
+        <div class="section-content">
+            <h2 class="section-headline">Languages</h2>
+            <ul class="countrylist">
+                <li class="countrylist-item">
+                    <a href="{{ url_for('rank.rank') }}" class="block">
+                        <img src="{{ url_for('static', filename='image/country/usa.png') }}" alt="usa flag" class="src">                            
+                        <span class="countrylist-caption">English(United States)</span>
+                    </a>
+                </li>
+                <li class="countrylist-item">
+                    <a href="{{ url_for('rank.rank_kr') }}" class="block">
+                        <img src="{{ url_for('static', filename='image/country/korea.png') }}" alt="korean flag" class="src">
+                        <span class="countrylist-caption">한국어</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<div class="lisence">
+    아이콘 제작자 <a href="https://www.flaticon.com/kr/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon"> www.flaticon.com</a>
+</div>
+
+{% endblock content %}

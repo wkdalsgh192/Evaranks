@@ -1,0 +1,197 @@
+{% extends "socksclub_layout.html" %}
+{% block content %}
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $('#blah').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+$(document).on('change', '.custom-file-input', function (event) {
+  $(this).next('.custom-file-label').html(event.target.files[0].name);
+  readURL(this);
+  });
+</script>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+<section class="count-header">
+<p>
+Today, <strong style="color:coral">0</strong> people gave birth to Eva
+</p>
+<p id='total-people' style="display:none">{{nums}}</p>
+<div class="count-footer">
+  <a href="/">
+  </a>
+</div>
+<footer class='section-footer'>
+</footer>
+</section>
+
+<section class="gender-select">
+<header class='gender-header'>
+  <div class='header-men menu init-out'><span>Men</span></div>
+  <div class='header-women menu init-in'><span>Women</span></div>
+</header>
+</section>
+
+<div id='space'></div>
+
+<!-- <main id="male-container" class="gender-img-container preload hide-male-container"> -->
+<main id="male-container" class="gender-img-container init-img-hide">  
+<section id='male-first-ranking'>
+  <div class="first-title">
+    <h2>
+      Eva's Man
+    </h2>
+  </div>
+  {%if first_male%}
+  <div class="first-container">
+    <div class="firsrt-male-container"><img src="{{first_male.img_url}}" class="wtf-image" data-toggle="modal" data-target="#myOutput{{ first_male.id }}"></div>
+  </div>
+  {%endif%}
+  <footer class='section-footer'>
+  </footer>
+</section>
+
+<section style="position:relative;z-index:-1" class="main-section">
+  <div class="img-container">
+      {% set count = [2] %}
+      {%for img in male_imgs %}
+      <div class="wf-box">
+          <img src="{{img.img_url}}" class="wtf-image" data-toggle="modal" data-target="#myOutput{{ img.id }}">
+          <div class="rank-box">
+              <p class="rank">{%if count[0]==1%}{{count[0]}}st{%elif count[0]==2%}{{count[0]}}nd{%elif count[0]==3%}{{count[0]}}rd{% else %}{{count[0]}}th{%endif%}</p>
+                  {% if count.append(count.pop() + 1) %}{% endif %}
+          </div>
+      </div>
+      {% endfor %}
+      </div>
+    </section>
+  </main>
+
+
+  <!-- <main id="female-container" class="gender-img-container preload show-female-container"> -->
+  <main id="female-container" class="gender-img-container init-img-show">
+    <section id='female-first-ranking'>
+      <div class="first-title">
+        <h2>
+          Eva's Woman
+        </h2>
+      </div>
+      {%if first_female%}
+      <div class="first-container">
+        <div class="firsrt-male-container"><img src="{{first_female.img_url}}" class="wtf-image" data-toggle="modal" data-target="#myOutput{{ first_female.id }}"></div>
+      </div>
+      {%endif%}
+      <footer class='section-footer'>
+      </footer>
+    </section>
+    
+    <section style="position:relative;z-index:-1" class="main-section">
+      <div class="img-container">
+          {% set count = [2] %}
+          {%for img in female_imgs %}
+          <div class="wf-box">
+              <img src="{{img.img_url}}" class="wtf-image" data-toggle="modal" data-target="#myOutput{{ img.id }}">
+              <div class="rank-box">
+                  <p class="rank">{%if count[0]==1%}{{count[0]}}st{%elif count[0]==2%}{{count[0]}}nd{%elif count[0]==3%}{{count[0]}}rd{% else %}{{count[0]}}th{%endif%}</p>
+                      {% if count.append(count.pop() + 1) %}{% endif %}
+              </div>
+          </div>
+          {% endfor %}
+          </div>
+        </section>
+      </main>
+
+
+
+
+  {% for img in total_queries %}
+  <!-- Modal -->
+  <div class="modal fade" id="myOutput{{ img.id }}" role="dialog">
+    <div class="modal-dialog modal-lg">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center"> {{img.fashion_text}}</h4>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+       <div class="container">
+          <div class="row">
+              <div class="col-6 text-center">
+              <img src="{{img.img_url}}" class="img-fluid d-block mx-auto">
+              </div>
+            <div class="col-6 text-center align-self-center">
+              <div style="margin:5px" >
+                  <div class="wtf-upper">
+                      <div class="wtf-label">Author</div>
+                      <a href="{{ url_for('users.account',user_id=img.author_id) }}">
+                      <p style="font-size:1.5vh;margin-top:10px">
+                             {{img.author.name}}
+                      </p>
+                    </a>
+                   </div>
+                <div class="wtf-upper">
+              {%if img.ai_style%}
+              <div class="wtf-label">AI가 분석한 스타일</div>
+              <p style="font-size:1.5vh;margin-top:10px">
+                {{img.score}} 퍼센트 {{img.ai_style}}
+              </p>
+                      {%endif%}
+                </div>
+                <div class="wtf-lower">
+        {%if img.lower%}
+        <div class="wtf-label">하의swag</div>
+        <p style="font-size:1.5vh;margin-top:10px">
+              {{img.lower}}
+        </p>
+                {%endif%}
+                </div>
+                <div class="wtf-text">    
+          <p style="font-size:1.5vh;margin-top:10px"> 
+        {%if img.etc%}
+      </p>   
+        <div class="wtf-label">etc</div>      
+               {{img.etc}}
+                  {%endif%}
+                </div>
+                </div>
+            </div>
+          </div>
+       </div>
+       </div>
+        <div class="modal-footer">
+          <button onclick="window.location.href='{{ url_for('scrap.scrap_post',fashionid=img.id) }}';" class="btn btn-outline-primary">Scrap</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  {% endfor %}
+  
+    <script type="text/javascript" src="{{ url_for('static', filename='lookbook/typing.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lookbook/lookbook.js') }}"></script>
+{% endblock content %}
+
+
+

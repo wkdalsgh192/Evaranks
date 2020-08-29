@@ -1,0 +1,160 @@
+body {
+	margin:0;
+	padding: 0;
+	font-family: sans-serif;
+	background-color: white;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.container header, footer {
+	flex-basis: 100px;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+}
+
+.content main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.content main > div {
+	width: 25rem;
+}
+
+/* Tablet Device */
+@media (max-width: 414px) {
+	.container header, footer {
+		flex-basis: 20px;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.content main {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.content main > div {
+		width: 25rem;
+	}
+
+	.content main div h1 {
+		font-size: 3rem;
+	}
+}
+
+.login h1 {
+	text-align: center;
+	font-size: 3.5rem;
+	margin-bottom: 2rem;
+	padding: 0.8rem 0;
+	color: black;
+	font-family: 'Roboto' sans-serif;
+}
+
+.facebook-login button {
+	width: 100%;
+	background-color: #3c5898;
+	border: none;
+	border-radius: 4px;
+	padding: 0.8rem;
+	color:white;
+	font-size: 1rem;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 10px;
+}
+
+.facebook-login button p {
+	text-align:center;
+}
+
+.google-login button {
+	width: 100%;
+	background-color: #f5f5f5;
+	border: none;
+	border-radius: 4px;
+	padding: 0.8rem;
+	color:black;
+	font-size: 1rem;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.login-divider {
+	text-align: center;
+	line-height: 0.5rem;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+.login-divider span {
+	position: relative;
+	color: #B2C0CC;
+	padding: 0 10px;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.input-container {
+	margin-top: 10px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.input-area label {
+	font-size: 1.2rem;
+	text-align: left;
+}
+.loginContent {
+	overflow: visible;
+	font-size: 20px;
+	padding: 8px 0;
+	border: 1px solid #E9ECF3;
+	border-radius: 0.25rem;
+	background-color: #FBFBFD;
+	padding-left: 10px;
+}
+
+
+.loginContent input {
+	border: none;
+	outline: none;
+	background: none;
+	color: black;
+	font-size: 1rem;
+	width: 80px;
+	padding-left: 10px;
+}
+
+.form-check {
+	text-align: left;
+	margin-top: 1rem;
+}
+
+#register {
+	width: 100%;
+	background: #000;
+	border: none;
+	border-radius: 4px;
+	padding: 10px;
+	margin-top: 20px;
+	font-size: 1rem;
+	font-weight: 400;
+	color: white;
+	cursor: pointer;
+}
+
+#register:hover {
+	background-color: #2f352d;
+	color:white;
+}

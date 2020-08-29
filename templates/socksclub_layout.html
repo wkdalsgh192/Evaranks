@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+	<!-- Customized CSS -->
+	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='image/favicon.ico') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lookbook/wf_layout.css') }}">
+	<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='lookbook/lookbook.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='basic/nav.css') }}">
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+	
+	<script>
+		(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);
+	</script>
+</head>
+<body>
+	<nav class="local-nav">
+		<div class="local-nav-links">
+			<div class="logo">
+				<a href="/">Eva Ranks</a>
+			</div>
+			<div class="menu-logo" id="menu-icon">
+				<span><i class="fas fa-bars"></i></span>
+			</div>
+			<a class="menu" id="rank" href="{{url_for('rank.rank')}}">AI Ranks</a>
+			<a class="menu" id="calender" href="{{url_for('calendar.calendar')}}">Calendar</a>
+			<a class="menu"  href="{{url_for('lookbook.main')}}">LearderBoard</a>
+			{%if current_user.is_authenticated() %}
+			<a class="menu" href="{{url_for('users.account',user_id=current_user.id)}}">My Page</a>
+			{%endif%}
+			{%if current_user.is_authenticated() %}
+			<a class="menu" href="{{url_for('users.logout')}}">Logout</a>
+			{%else%}
+			<a class="menu" href="{{url_for('users.login')}}">Login</a>
+			{%endif%}	
+		</div>
+	</nav>
+				{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+								<div class="alert alert-{{ category }}">
+									{{ message }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+
+
+  {% block content %}{% endblock %}
+
+	<!-- Customized JS -->
+	<script src="{{url_for('static', filename='lookbook/custom-file-input.js') }}"></script>
+	<script src="{{ url_for('static', filename='lookbook/responsive_waterfall.js') }}"></script>
+	<script src="{{ url_for('static', filename='users/user.js') }}"></script>
+	<script src="{{ url_for('static', filename='lookbook/wf_layout_app.js') }}"></script>
+</body>
+</html>

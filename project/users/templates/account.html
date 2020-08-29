@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img align-self-center mr-3" src="{{ profile_image }}">
+        <div class="media-body align-self-center">
+					<div class="media-top">
+						<div class="container-name">
+						<h3 class="mt-0 align-self-center">
+							{{ user.name }}
+						</h3>
+					</div>
+					<div class="container-instagram">
+						{% if user.instagram %}
+						<h3 class="mt-0 align-self-center">
+							Personal channel
+						</h3>
+						<p>
+						<a href="{{user.instagram }}" style="text-decoration:none">{{ user.instagram }}</a>	
+						</p>
+						{% endif %}
+					</div>
+					</div>
+					<div class="media-bottom">
+						<div class="btn-group" role="group" aria-label="First group">
+							<button type="button" class="btn btn-success">내 사진
+								<span class="badge badge-light">{{image_cnt}}</span>
+							</button>
+						</div>
+						<div class="btn-group" role="group" aria-label="Second group">
+							<button type="button" class="btn btn-success"> 스크랩
+								<span class="badge badge-pill badge-light">{{scrap_cnt}}</span>
+							</button>
+						</div>
+					</div>
+      	</div>
+			</div>
+		</div>
+					<!-- <div class="media-bottom">
+          	<p class="text-secondary">{{ current_user.email }}</p>
+					</div> -->
+    <div class="border-top mb-4">
+				<a id="bdr1" style="border-top: 1px solid black" onclick="
+				borderTopMaker(this, 'bdr2');
+				invisibleImg('.imgArticle2', '.imgArticle');">게시물</a>
+				<a id="bdr2" onclick="
+				borderTopMaker(this, 'bdr1');
+				invisibleImg('.imgArticle', '.imgArticle2');">스크랩</a>
+		</div>
+		<script>
+			function borderTopMaker(self, borderA) {
+					self.style.borderTop = "1px solid black";
+					document.getElementById(borderA).style.borderTop = "";
+			}
+
+			function invisibleImg(classDown, classUp) {
+				document.querySelector(classDown).style.display = 'none';
+				document.querySelector(classUp).style.display = 'inline';
+			}
+		</script>
+
+			<div class="image-section">
+				<article class="imgArticle">
+					<div class="main-images">
+						{% for img in user_img %}
+						<img src="{{img.img_url}}" class="img-thumbnail rounded " alt="..." data-toggle="modal" data-target="#myOutput{{ img.id }}">
+						<div class="empty-space">
+						</div>
+						{% endfor %}
+					</div>
+				</article>
+				<article class="imgArticle2" style="display: none">
+					<div class="main-images">
+						{% for img in scrap_img %}
+						<img src="{{img.fashionscore.img_url}}" class="img-thumbnail rounded " alt="..." data-toggle="modal" data-target="#Scrap{{ img.fashionscore.id }}">
+						<div class="empty-space">
+						</div>
+						{% endfor %}
+					</div>
+				</article>
+			</div>
+
+
+
+{% for img in user_img %}
+ <!-- Modal -->
+  <div class="modal fade" id="myOutput{{ img.id }}" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{img.author.name}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+       <img src="{{img.img_url}}" class="img-fluid d-block mx-auto">
+       <div class="container">
+         <div class="row">
+           <div class="col text-center" style="margin:2px">
+			   {% if current_user.id != img.author.id %}
+			<button onclick="window.location.href='{{ url_for('scrap.scrap_post',fashionid=img.id) }}';" class="btn btn-outline-primary btn-block">Scrap</button>
+			{% else %}
+			{#<button onclick="window.location.href='{{ url_for('lookbook.update_post',fashion_id=img.id) }}';" class="btn btn-outline-primary btn-block">Update Post</button>#}
+			<button class="btn btn-outline-primary btn-block"  data-toggle="modal" data-target="#deleteModal{{img.id}}">Delete Post</button>
+			{% endif %}
+            </div>
+          </div>
+       </div>
+       </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteModal{{img.id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  <form action="{{ url_for('lookbook.delete_post', fashion_id=img.id) }}" method="POST">
+				<input class="btn btn-danger" type="submit" value="Delete">
+			  </form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+{% endfor %}
+
+
+
+{% for img in scrap_img %}
+ <!-- Modal -->
+  <div class="modal fade" id="Scrap{{ img.fashionscore.id }}" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><a href="{{ url_for('users.account',user_id=img.fashionscore.author_id) }}">{{img.fashionscore.author.name}}</a></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+			<img src="{{img.fashion.img_url}}" class="img-fluid d-block mx-auto">
+       <div class="container">
+         <div class="row">
+           <div class="col text-center" style="margin:2px">
+			{% if current_user.has_scrapped_fashion(img.fashionscore) %}
+			<button onclick="window.location.href='{{ url_for('scrap.remove_scrap',fashionid=img.scrapped_airank) }}';" class="btn btn-outline-primary">Remove from Scrap</button>
+			{% else %}
+			<button onclick="window.location.href='{{ url_for('scrap.scrap_post',fashionid=img.fashionscore.id) }}';" class="btn btn-outline-primary btn-block">Scrap</button>
+			{% endif %}
+            </div>
+          </div>
+       </div>
+       </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endfor %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Register</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='users/register.css') }}"></link>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<script>
+		window.fbAsyncInit = function() {
+		  FB.init({
+			appId      : '217952746265250',
+			cookie     : true,
+			xfbml      : true,
+			version    : 'v7.0'
+		  });
+		  FB.AppEvents.logPageView();  
+		};
+
+		function fb_login(){
+			FB.login(function(response) {
+		
+				if (response.authResponse) {
+					statusChangeCallback(response)
+				} else {
+					//user hit cancel button
+					console.log('User cancelled login or did not fully authorize.');
+				}
+			});
+		}
+
+		function statusChangeCallback(response) {
+			console.log('statusChangeCallback');
+			console.log(response);
+			// The response object is returned with a status field that lets the
+			// app know the current login status of the person.
+			// Full docs on the response object can be found in the documentation
+			// for FB.getLoginStatus().
+			if (response.status === 'connected') {
+				// Logged into your app and Facebook.
+				console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function (response) {
+					console.log('Successful login for: ' + response.name);
+					window.location.href = window.origin+"/facebook_callback/"+response.name
+				});
+			} else {
+				window.location.href = window.origin+"/login"
+			   console.log('error')
+			}
+		}
+	  
+		(function(d, s, id){
+		   var js, fjs = d.getElementsByTagName(s)[0];
+		   if (d.getElementById(id)) {return;}
+		   js = d.createElement(s); js.id = id;
+		   js.src = "https://connect.facebook.net/en_US/sdk.js";
+		   fjs.parentNode.insertBefore(js, fjs);
+		 }(document, 'script', 'facebook-jssdk'));
+
+
+		
+		function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+		statusChangeCallback(response);
+		});
+		}
+	  </script>
+
+<body>
+	<div class="container">
+		<header></header>
+		<section class="content">
+			<nav></nav>
+			<main>
+				<div class="login">
+					<h1>Join Socks Club</h1>
+					<div class="social-login">
+						<div class="facebook-login">						
+								<button id="facebook-box" onclick="fb_login();">
+									<i class="fab fa-facebook" aria-hidden="true"></i>
+									Sign in with Facebook
+								</button>
+							</div>
+						{#
+						<div class="google-login">
+							<button id="google-box">
+								<i class="fab fa-google"></i>
+								Sign in with Google
+							</button>
+						</div>
+						#}
+					</div>
+					<h2 class="login-divider">
+						<span>or</span>
+					</h2>
+					<form class="form-signin" role="form" method="post" action="">
+					  {{ form.csrf_token }}
+					  <div>
+							<div class="input-container">
+							  <label class="form-control-label">User ID</label>
+						      {% if form.username.errors %}
+						      {{ form.username(class="form-control form-control-lg is-invalid") }}
+						      <div class="invalid-feedback">
+						      	{% for error in form.username.errors %}
+						      	<span>{{ error }}</span>
+						      	{% endfor %}
+					      </div>
+					      {% else %}
+					      {{ form.username(class="form-control form-control-lg") }}
+					      {% endif %}
+							</div>
+							<div class="input-container">
+							  <label class="form-control-label">Email</label>
+				          {% if form.email.errors %}
+				          {{ form.email(class="form-control form-control-lg is-invalid") }}
+				          <div class="invalid-feedback">
+				            {% for error in form.email.errors %}
+				            <span>{{ error }}</span>
+				            {% endfor %}
+				          </div>
+				          {% else %}
+				          {{ form.email(class="form-control form-control-lg") }}
+				          {% endif %}
+							</div>
+							<div class="input-container">
+								<label class="form-control-label">Instagram</label>
+							{% if form.instagram.errors %}
+							{{ form.instagram(class="form-control form-control-lg is-invalid") }}
+							<div class="invalid-feedback">
+							  {% for error in form.instagram.errors %}
+							  <span>{{ error }}</span>
+							  {% endfor %}
+							</div>
+							{% else %}
+							{{ form.instagram(class="form-control form-control-lg") }}
+							{% endif %}
+							  </div>
+
+							  <div class="input-container">
+									<label class="form-control-label">Gender</label>
+								{% if form.gender.errors %}
+								{{ form.gender(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+								  {% for error in form.gender.errors %}
+								  <span>{{ error }}</span>
+								  {% endfor %}
+								</div>
+								{% else %}
+								{{ form.gender(class="form-control form-control-lg") }}
+								{% endif %}
+								  </div>
+
+
+							<div class="input-container">
+							  <label class="form-control-label">Password</label>
+				          {% if form.password.errors %}
+				            {{ form.password(class="form-control form-control-lg is-invalid") }}
+				            <div class="invalid-feedback">
+				              {% for error in form.password.errors %}
+				              <span>{{ error }}</span>
+				              {% endfor %}
+				            </div>
+				          {% else %}
+				          {{ form.password(class="form-control form-control-lg") }}
+				          {% endif %}
+							</div>
+							<div class="input-container">
+							  <label class="form-control-label">Confirm Password</label>
+					        {% if form.confirm.errors %}
+				            {{ form.confirm(class="form-control form-control-lg is-invalid") }}
+					          <div class="invalid-feedback">
+				              {% for error in form.confirm.errors %}
+				              <span>{{ error }}</span>
+				              {% endfor %}
+					          </div>
+					        {% else %}
+				          {{ form.confirm(class="form-control form-control-lg") }}
+					        {% endif %}
+							</div>
+						</div>
+					  <button id="register" type="submit">Register</button>
+					  {% if error %}
+					  <p class="error"><strong>Error:</strong> {{ error }}</p>
+						{% endif %}
+					</form>
+				</div>
+			</main>
+		<aside></aside>
+		</section>
+		<footer></footer>
+
+</body>
+</html>

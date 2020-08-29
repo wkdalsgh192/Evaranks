@@ -1,0 +1,280 @@
+body {
+	margin:0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+}
+
+.dwJiCx {
+	display: flex;
+	flex-direction: column;
+	background-color: #fafafa;
+}
+
+.dwJiCx header, footer {
+	flex-basis: 4rem;
+}
+
+.container {
+	width: 60%;
+}
+
+.divider {
+	width: 80%;
+	border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+
+/* 헤더 레이아웃  시작 */
+	.site-header .bg-steel {
+		background-color: #fff;
+		border-bottom: 1px solid #dddddd;
+	}
+
+	.site-header .navbar-brand {
+		color: #000000;
+		margin-right: 1.5rem;
+	}
+
+	.site-header .navbar-brand:hover {
+		color: #808080;
+	}
+
+	.site-header .navbar-nav {
+		width: 4rem;
+		height: 3rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.site-header .navbar-nav .nav-link {
+		position: relative;
+	}
+
+	.site-header .navbar-nav .nav-link a, button {
+		color: black;
+		cursor: pointer;
+	}
+
+	.site-header .navbar-nav .nav-link button {
+		border: none;
+		background: none;
+	}
+
+  .site-header .navbar-nav .nav-link {
+    color: #000000;
+  }
+
+  .site-header .navbar-nav .nav-link:hover {
+    color: #808080;
+  }
+
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+
+	.dropdown-content {
+		position: absolute;
+		margin-top: 0.5rem;
+		left:-126%;
+		width: 10rem;
+		height: 8rem;
+		display: none;
+		border: 1px solid black;
+		border-radius: 5px;
+		background-color: white;
+		transform: translateX(-4rem);
+		/* transition: all 0.4 ease; */
+	}
+
+	.nav-link .dropdown-content a {
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 3rem;
+		text-decoration: none;
+		color: black;
+		font-size: 1.2rem;
+	}
+
+	.nav-link .dropdown-content a:hover {
+		background: rgb(224, 224, 224);
+	}
+
+	.dropdown-content-show {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+
+/* 본문 레이아웃 시작 */
+  .content-section {
+    background: #fafafa;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 10px;
+		display: flex;
+		flex-direction:column;
+  }
+
+/* 계정 정보 레이아웃 시작 */
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+
+	.media-body {
+		display: flex;
+		flex-direction: column;
+		margin-left: 5rem;
+	}
+
+	.media-body div {
+		margin-bottom: 0.8rem;
+	}
+
+	.media-body h3 button {
+		margin-left: 0.8rem;
+	}
+
+/* 경계선 레이아웃 시작 */
+	.border-top {
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		align-items: center;
+	}
+
+	.border-top a {
+		margin-left: 1rem;
+		padding-top: 0.8rem;
+		text-align: center;
+		cursor: pointer;
+		/*border-top: 1px solid black;*/
+	}
+
+
+/* 저장된 이미지 레이아웃 시작 */
+	.image-section {
+		width: 100%;
+		height: 1256px;
+		display: flex;
+	}
+
+	.imgArticle, .imgArticle2 {
+		width: 100%
+	}
+
+	.main-images {
+		display:flex;
+		flex-wrap: wrap;
+		justify-content:flex-start;
+		-ms-align-items: space-between;
+		align-items: space-between;
+	}
+
+	.main-images div {
+		display:flex;
+		width: 3%;
+		height: 20rem;
+		margin-bottom: 2rem;
+	}
+
+	.main-images img {
+		display: flex;
+		width: 30%;
+		height: 20rem;
+		margin-bottom: 2rem;
+	}
+
+/* 모바일웹 디자인 시작 */
+@media (max-width: 420px) {
+	nav.navbar {
+		width: 100%;
+		position: sticky;
+		top: 0;
+		left:0;
+		padding:0;
+		margin:0;
+	}
+	.container {
+		width: 100%;
+		padding: 0.5rem;
+		margin: 0;
+	}
+	.site-header .navbar-brand {
+		padding-left: 1rem;
+	}
+	.navbar-nav {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.navbar-nav * {
+		margin-right: 0.5rem;
+	}
+
+	div.col-md-12 {
+		width: 100%;
+	}
+
+	.content-section {
+		padding:0;
+	}
+
+	.account-img {
+    height: 5rem;
+    width: 5rem;
+    margin 0;
+  }
+
+	.media-body {
+		display: flex;
+		flex-direction: column;
+		margin-left: 3rem;
+	}
+
+	.media-body div {
+		margin-bottom: 0.5rem;
+	}
+
+	.media-body h3 {
+		font-size: 1.5rem;
+	}
+
+	.media-body .btn {
+		margin-left: 0;
+		border: 1px solid black;
+	}
+
+	.image-section {
+		width: 100%;
+		height: 100%;
+		display: flex;
+	}
+
+	.media-bottom .btn {
+		font-size: 0.8rem;
+	}
+
+	.main-images div {
+		width: 3%;
+		height: 6rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.main-images img {
+		display:flex;
+		width: 30%;
+		height: 6rem;
+		margin-bottom: 0.5rem;
+	}
+}

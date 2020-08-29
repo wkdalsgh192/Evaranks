@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='users/login_tutorial.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='rank/rank.css') }}">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='lookbook/lookbook.css') }}"></link>
+
+		<script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+
+    {% if title %}
+        <title>My Page - {{ title }}</title>
+    {% else %}
+        <title>My Page</title>
+    {% endif %}
+</head>
+<body>
+	<div class="dwJiCx">
+    <header class="site-header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">AI Eva</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+					<!-- <form class="form-inline my-2 my-lg-0">
+      			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    			</form> -->
+
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if current_user.is_authenticated() %}
+							<div class="nav-item nav-link">
+								<a id="home_icon" href="{{ url_for('home.home') }}" style="font-size: 1.2rem;"><i class="fas fa-home fa-lg"></i></a>
+							</div>
+							<div class="nav-item nav-link">
+								<button id="user-icon" onclick="settingsFunction()" class="settingsbtn" style="font-size: 1.2rem;"><i class="fas fa-user fa-lg"></i></button>
+								<div id="user-dropdown" class="dropdown-content">
+									<a href="{{ url_for('users.edit_account') }}">
+										<span><i class="fas fa-cogs fa-sm" aria-hidden=True></i></span>
+										<p>Edit Profile</p>
+									</a>
+									<div class="divider"></div>
+									<a href="{{ url_for('users.logout') }}">
+										<span></span>
+										<p>Log Out</p>
+									</a>
+								</div>
+							</div>
+            {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Log in</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Join</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+		<section class="content">
+	    <main role="main" class="container">
+	      <!-- <div class="row"> -->
+	        <div class="col-md-12">
+	          {% with messages = get_flashed_messages(with_categories=true) %}
+	            {% if messages %}
+	              {% for category, message in messages %}
+	                <div class="alert alert-{{ category }}">
+	                  {{ message }}
+	                </div>
+	              {% endfor %}
+	            {% endif %}
+	          {% endwith %}
+	          {% block content %}{% endblock %}
+	        </div>
+	      <!-- </div> -->
+	    </main>
+			<aside></aside>
+		</section>
+		<footer></footer>
+	</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='users/user.js') }}"></script>
+
+</body>
+</html>

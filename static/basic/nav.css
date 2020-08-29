@@ -1,0 +1,95 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap'); */
+
+@font-face {
+	font-family: "Product Sans";
+	src: local("../fonts/product-sans/Product Sans Regular.ttf");
+}
+
+html {
+    font-family: 'Product Sans', sans-serif;
+    font-size: 14px;
+}
+/* navbar layout 디자인 */
+a {
+    color: rgb(28, 28, 36);
+    text-decoration: none;
+}
+
+.local-nav {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100vw;
+	padding: 0 2.5vw;
+	height: 8vh;
+	box-sizing: border-box;
+	border-bottom: 1px solid #ddd;
+	transition: 0.5s;
+	z-index: 10;
+}
+
+.local-nav-links {
+	display: flex;
+	align-items: center;
+	min-width: 414px;
+	height: 100%;
+}
+
+.local-nav-links .logo {
+	margin-right: auto;
+}
+
+.local-nav-links .logo a {
+	font-family: 'Product Sans', sans-serif;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: coral;
+}
+
+.local-nav-links .menu {
+	margin-left: 2em;
+	font-family: 'Manrope', sans-serif;
+	font-size: 0.8em;
+	color:black;
+	cursor: pointer;
+}
+
+.local-nav-links .logo a:hover {
+	text-decoration: none;
+	cursor:pointer;
+}
+
+.local-nav-links .menu:hover {
+	text-decoration: none;
+	cursor:pointer;
+	color: rgba(224,224,224, 0.5)
+}
+
+/* 바디 콘텐츠 레이아웃 디자인 */
+.content {
+	position: relative;
+	top:0;
+}
+
+@media screen and (max-width: 414px) {	
+	.local-nav {
+		width: 100vw;
+		height: 6vh;
+		display: flex;
+		justify-content:space-between;
+		align-items: center;
+	}
+
+	.local-nav-links .logo {
+		float: left;
+		margin-right: 1rem;
+	}
+
+	.local-nav-links .logo a {
+		font-size: 1em;
+	}
+
+	.local-nav-links .menu {
+		font-size: 0.8rem;
+	}
+} 

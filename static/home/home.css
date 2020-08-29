@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Patua+One&display=swap');
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+/* 헤더 부분 디자인  */
+header {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	box-sizing: border-box;
+	min-height: 1080px;
+	background-image: url(https://images.unsplash.com/photo-1454210801264-78d1918a2ae2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80);
+	background-repeat:no-repeat;
+	background-position: 50% 10%;
+	background-size: cover;
+	filter: grayscale(100%);
+}
+
+.header-contents {
+	position: absolute;
+	top: 0px;
+	left: 100px;
+	letter-spacing: 0px;
+	word-break: keep-all;
+	color: #333;
+}
+
+.header-highlight {
+	font-size: 96px;
+	font-family: 'Patua One', cursive;
+	text-shadow: 0.5rem 0.5rem 0.5rem gray;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.header-button {
+	border: none;
+	background-color: #0c0a0a;
+	border-radius:50px;
+	padding: 1.5rem 2rem;
+}
+
+.header-button a {
+	text-align: center;
+	font-family: 'Patua One', cursive;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	}
+
+@media screen and (max-width: 414px) {
+  	body {
+		overflow-x: hidden;
+	}
+	  
+	header {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		box-sizing: border-box;
+		min-height: 960px;
+		background-image: url(https://images.unsplash.com/photo-1551215920-264d75274033?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);
+		background-repeat:no-repeat;
+		background-position: 50% 10%;
+		background-size: cover;
+		filter: none;
+	}
+
+	header .header-contents {
+		position: absolute;
+		top: 20%;
+		left: 40%;
+		letter-spacing: 0px;
+		word-break: keep-all;
+		color: #333;
+	}
+	
+	
+	header .header-contents .header-highlight {
+		font-size: 2rem;
+		font-family: 'Patua One', cursive;
+		text-shadow: none;
+		background-color: coral;
+		padding: 0.5rem 1rem;
+	}
+
+	.header-button {
+		border: none;
+		background-color: coral;
+		border-radius:50px;
+		padding: 1rem 1.5rem;
+	}
+	
+	.header-button a {
+		text-align: center;
+		font-family: sans-serif;
+		font-size: 1rem;
+		font-weight: 700;
+		color: #333;
+		text-decoration: none;
+	}
+}

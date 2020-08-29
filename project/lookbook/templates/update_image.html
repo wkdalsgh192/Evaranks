@@ -1,0 +1,32 @@
+{% extends "socksclub_layout.html" %}
+{% block content %}
+
+<div class='container'>
+ <div class="row">
+<img class='img-responsive' src="{{url_for('static',filename='image/fashion/'+fashion.img_url)}}">
+</div>
+<form action="update_post" method="post" id="upload-form" enctype="multipart/form-data">
+     <label for="comment">Modify Comment</label>
+    <input type="text" name="comment" id="form-tags-look" value={{fashion.fashion_text}}>
+
+    <label for="upper">Upper</label>
+    <input type="text" name="upper" id="form-tags-1" value={{fashion.upper}}>
+    
+    <label for="upper">Lower</label>
+    <input type="text" name="lower" id="form-tags-lower" value={{fashion.lower}}>
+
+    
+    <label for="upper">etc</label>
+    <input type="text" name="etc" id="form-tags-etc" value={{fashion.etc}}>
+
+    <input type="submit" />
+</form>
+</div>
+
+
+
+{% if error %}
+{{ error }}
+{% endif %}
+
+{% endblock content %}

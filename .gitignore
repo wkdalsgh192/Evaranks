@@ -1,0 +1,8 @@
+.ebextensions/*
+.elasticbeanstalk/*
+migrations/*
+
+project/rank/model/*
+
+*.pyc
+*.bat

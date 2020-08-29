@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- Customized CSS -->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='calendar/calendar.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='basic/nav.css') }}">
+        
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+        <!-- Bootstrap CSS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+				<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    </head>
+
+    <body>
+			<nav class="local-nav">
+				<div class="local-nav-links">
+					<div class="logo">
+						<a href="/home">Eva Ranks</a>
+					</div>
+					<div class="menu-logo" id="menu-icon">
+						<span><i class="fas fa-bars"></i></span>
+					</div>
+					<a class="menu" id="rank" href="{{url_for('rank.rank')}}">AI Ranks</a>
+					<a class="menu" id="calender" href="{{url_for('calendar.calendar')}}">Calendar</a>
+					<a class="menu"  href="{{url_for('lookbook.main')}}">Lookbook</a>
+					{%if current_user.is_authenticated() %}
+					<a class="menu" href="{{url_for('users.account',user_id=current_user.id)}}">My Page</a>
+					{%endif%}
+					{%if current_user.is_authenticated() %}
+					<a class="menu" href="{{url_for('users.logout')}}">Logout</a>
+					{%else%}
+					<a class="menu" href="{{url_for('users.login')}}">Login</a>
+					{%endif%}	
+				</div>
+			</nav>
+				{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+								<div class="alert alert-{{ category }}">
+									{{ message }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+
+
+				<!-- Make a calendar -->
+        <div id="calendar-container">
+            <div id="calendar-header">
+                <span id="calendar-month-year"></span>
+            </div>
+            <div id="calendar-dates">
+            </div>
+        </div>
+        <div class="modal fade" id="trial" role="dialog">
+                <div class="modal-dialog modal-lg">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+	                   <div class="modal-header">
+	                      <h5 class="modal-title">사진 기록</h5>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+	                   </div>
+	                  <div class="modal-body">
+											<p class="init-upload" id="line1">오늘 하루 코디는 어땠나요?</p>
+				              <p class="init-upload">꼭 잘 찍을 필요 없어요. 오늘 입은 예쁜 옷을 기억한다면 충분해요.</p>
+											<div style="text-align:center;">
+												<img class="blah" src="{{ url_for('static', filename='image/calendar/modal.png') }}">
+											</div>
+											<p class="init-upload">지금 바로 사진을 업로드해보세요.</p>
+                    </div>
+
+                     <div class="modal-footer">
+												<div class="file-uploader">
+													<form action="calendar_submit" method="post" id="upload-form" enctype="multipart/form-data">
+														<label class="file-label" for="customFile"><p>사진 찾기</p></label>
+														<input type="file" class="file-input" name="imagefile" id="customFile">
+														<input id="form-date" name="date" type="text" value="">
+														<input class="file-submit" value="사진 등록" type="submit" />
+													</form>
+												</div>
+                     </div>
+                  </div>
+                </div>
+             </div>
+
+        {% for key,value in queries.items() %}
+         <div class="modal fade" id="myOutput{{ key }}" role="dialog">
+           <div class="modal-dialog modal-lg">
+             <!-- Modal content-->
+             <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{key}}일</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <img src="{{value}}" class="img-fluid d-block mx-auto">
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary btn-block"  data-toggle="modal" data-target="#deleteModal{{key}}">Delete Post</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+             </div>
+             </div>
+        </div>
+
+
+        <div class="modal fade" id="deleteModal{{key}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">코디 지우기</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <form action="{{ url_for('calendar.calendar_delete', date=key) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+       {% endfor %}
+
+
+    </body>
+    <!-- Customized JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='calendar/calendar.js') }}"></script>
+    <script type="text/javascript">
+        myvar = '{{queries|tojson}}';
+        var parsed = JSON.parse(myvar);
+        make_calendar(parsed);
+    </script>
+    <script>
+			// Nav bar animation
+			const navSlide = () => {
+			    const burger = document.querySelector('.menu-logo');
+			    const nav = document.querySelector('.static');
+			    const navLinks = document.querySelectorAll('ul.static li');
+			    //Toggle Nav
+			    burger.addEventListener('click', function(e) {
+			        nav.classList.toggle('mobile');
+			    //Animate Links
+			    });
+			}
+			navSlide();
+
+    $(document).on("click", ".open-AddBookDialog", function () {
+        //init
+				$('.file-input').css('opacity','0');
+				$('#form-date').css('display', 'none');
+        //날짜
+        var myBookId = $(this).text();
+        $('#form-date').val(myBookId);
+        console.log(myBookId);
+    });
+
+    //image미리보기
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('.blah').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).on('change','.file-input', function (event) {
+
+    $(this).next('.file-label').html(event.target.files[0].name);
+    readURL(this);
+    });
+    </script>
+</html>
