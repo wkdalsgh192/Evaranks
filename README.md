@@ -25,7 +25,7 @@ How to design the whole layout for better UI/UX was a core issue in this project
 
 
 Here's the sample code : 
-```javascript=
+```javascript
 let typing =  setInterval(function(){
   content_element.innerHTML += content[text_idx]
   text_idx += 1
