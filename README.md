@@ -79,12 +79,13 @@ if USE_TF:
 
 def predict():
 	if USE_TF:
-    #code
+        print("#")    
+
 	else:
-    result = np.random.randn(1,len(style_name))
-    pred_class=np.argmax(result)
-    ai_style =style_name[pred_class] #Street
-    img_str = request.json['image']
+        result = np.random.randn(1,len(style_name))
+        pred_class=np.argmax(result)
+        ai_style =style_name[pred_class] #Street
+        img_str = request.json['image']
     return pil_random_img
 ```
 
