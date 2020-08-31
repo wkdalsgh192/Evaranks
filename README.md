@@ -79,14 +79,41 @@ if USE_TF:
 
 def predict():
 	if USE_TF:
-        print("#")    
+      print("#")    
 
 	else:
-        result = np.random.randn(1,len(style_name))
-        pred_class=np.argmax(result)
-        ai_style =style_name[pred_class] #Street
-        img_str = request.json['image']
+      result = np.random.randn(1,len(style_name))
+      pred_class=np.argmax(result)
+      ai_style =style_name[pred_class] #Street
+      img_str = request.json['image']
     return pil_random_img
+```
+
+2. Big size Image
+We encode the image and encoded into base64 . When big size image was uploaded, it is sent to the server after it is chunked into small size data. However flask didn't support handling chunked datas, therefore we had to resize the image beforehand.
+
+```javascript
+//rank..js
+
+function imageToDataUri() {
+  // create an off-screen canvas
+  var canvas = document.createElement('canvas'),
+      ctx = canvas.getContext('2d');
+
+  width = 256
+  height = 256
+
+  // set its dimension to target size
+  canvas.width = width;
+  canvas.height = height;
+  // draw source image into the off-screen canvas:
+  ctx.drawImage(this, 0, 0, width, height);
+
+  // encode image to data-uri with base64 version of compressed image
+  compressed_base64 = canvas.toDataURL();
+
+  return compressed_base64
+}
 ```
 
 ### PostgreSQL
@@ -106,6 +133,14 @@ We used AWS Elastic Beanstalk and RDS to deploy our application. There are pros 
 1. Temporary server error occurs in updating app version.
 2. A bit complicate for beginners to figure out settings and configuration like ebextensions.
 
+
+### Tips
+You can execute the command shell script when you deplay as below. You don't need to connect to the ec2 directly which makes very convenient. Since tensorflow takes up quite a lot of memory while server is runing, I would recommend useing container commands which is executed before server runs.
+```
+container_commands:
+  python_create:
+    command: source /opt/python/run/venv/bin/activate && python db_create.py
+```
 
 ### RDS
 **Pros**

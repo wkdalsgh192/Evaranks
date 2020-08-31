@@ -88,7 +88,6 @@ def base64_to_pil(img_base64):
 def Generate_RandomImage():
     '''dev'''
     rgb_array = np.random.rand(256, 256) * 255
-
     pil_random_img =  Image.fromarray(rgb_array.astype('uint8')).convert('RGB')
 
     return pil_random_img

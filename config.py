@@ -38,6 +38,7 @@ class TestConfig(BaseConfig):
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
+    USE_TF = False
 
 
 class ProductionConfig(BaseConfig):
