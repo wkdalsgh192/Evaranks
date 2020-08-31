@@ -1,4 +1,6 @@
-# evaranks.com
+[![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url] [![MIT License][license-shield]][license-url]
+
+# evaranks.com👋
 > A web application where a CNN-based AI classifies your fashion style
 
 ## Demo
@@ -10,11 +12,40 @@ Eva, fashion-classifier AI, is able to analyze your picture to figure out what y
 
 
 ## AI Stack
-Eva was created based on a nice paper regarding vision AI : **M. Takagi, E. Simo-Serra, S. Iizuka, and H. Ishikawa. WhatMakes a Style: Experimental Analysis of Fashion Prediction.InProceedings of the International Conference on ComputerVision Workshops (ICCVW), 2017.**
+Eva was created based on a nice paper regarding vision AI : 
+**M. Takagi, E. Simo-Serra, S. Iizuka, and H. Ishikawa. WhatMakes a Style: Experimental Analysis of Fashion Prediction.InProceedings of the International Conference on ComputerVision Workshops (ICCVW), 2017.**
 
 Among several models, we chose to use `VGG-16 model` after examining the validation result, which was a little bit higher than other candidates such as ResNet or VGG-50.
 
-// training dataset picture
+### Feature Extraction Map
+One of the noticeable outcome is we extracted the weight shape of last convolutional layer and visualized them on the original picture we used to predict its class. we got a result like the below.
+
+Here's the sample code we wrote : 
+```python
+from matplotlib.pyplot import imshow
+test_image = Image.open('test_img.jpg', 'r')
+test_image = test_image.resize((256, 256))
+test_image = np.asarray(test_image2)
+
+# load model
+test_image = np.array(test_image.reshape(-1, 256, 256, 3))
+last_conv_output, pred = new_model.predict(test_image)
+
+last_conv_output = np.squeeze(last_conv_output)
+feature_activation_map = scipy.ndimage.zoom(last_conv_output, (32, 32, 0.5), order=1)
+
+
+pred_class = np.argmax(pred)
+predicted_class_weights= last_weight[:, pred_class]
+print(predicted_class_weights.shape)
+
+# visualize output
+final_output = np.dot(feature_activation_map.reshape((256*256, 256)), predicted_class_weights).reshape((256, 256))
+fig, ax = plt.subplots(nrows=1, ncols=2)
+fig.set_size_inches(16, 20)
+
+```
+
 
 ## Front-end Stack
 ### Vanila JS & CSS3(HTML5)
@@ -156,4 +187,20 @@ Nothing!! at least while we have used it.
 
 1. Facebook Login
 2.Sharing Results in KakKoTalk
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/wkdalsgh192/evaranks.svg?style=flat-square
+[contributors-url]: https://github.com/wkdalsgh192/evaranks/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/wkdalsgh192/evaranks.svg?style=flat-square
+[forks-url]: https://github.com/wkdalsgh192/evaranks/network/members
+[stars-shield]: https://img.shields.io/github/stars/wkdalsgh192/evaranks.svg?style=flat-square
+[stars-url]: https://github.com/wkdalsgh192/evaranks/stargazers
+[issues-shield]: https://img.shields.io/github/issues/wkdalsgh192/evaranks.svg?style=flat-square
+[issues-url]: https://github.com/wkdalsgh192/evaranks/issues
+[license-shield]: https://img.shields.io/github/license/wkdalsgh192/evaranks.svg?style=flat-square
+[license-url]: https://github.com/wkdalsgh192/evaranks/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/wkdalsgh192
+[product-screenshot]: images/screenshot.png
 
