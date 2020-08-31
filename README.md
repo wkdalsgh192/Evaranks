@@ -89,8 +89,9 @@ def predict():
     return pil_random_img
 ```
 
-2. Big size Image
-We encode the image and encoded into base64 . When big size image was uploaded, it is sent to the server after it is chunked into small size data. However flask didn't support handling chunked datas, therefore we had to resize the image beforehand.
+2. Big size Image  
+
+  We encoded the image and encoded into base64 . When big size image was uploaded, it is sent to the server after it is chunked into small size data. However flask didn't support handling chunked datas, therefore we had to resize the image beforehand.
 
 ```javascript
 //rank..js
