@@ -20,6 +20,11 @@ Among several models, we chose to use `VGG-16 model` after examining the validat
 ### Feature Extraction Map
 One of the noticeable outcome is we extracted the weight shape of last convolutional layer and visualized them on the original picture we used to predict its class. we got a result like the below.
 
+<p align="center">
+    <img width="700" align="center" src="https://user-images.githubusercontent.com/50606172/91714486-d5b9d880-ebc6-11ea-883a-cae2ad663d52.png" alt="demo"/>
+</p>
+
+
 Here's the sample code we wrote : 
 ```python
 from matplotlib.pyplot import imshow
