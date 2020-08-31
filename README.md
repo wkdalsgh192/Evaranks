@@ -78,14 +78,14 @@ if USE_TF:
     from tensorflow.keras.callbacks import ModelCheckpoint
 
 def predict():
-	if USE_TF:
-      print("#")    
+    if USE_TF:
+        print("#")    
 
-	else:
-      result = np.random.randn(1,len(style_name))
-      pred_class=np.argmax(result)
-      ai_style =style_name[pred_class] #Street
-      img_str = request.json['image']
+    else:
+        result = np.random.randn(1,len(style_name))
+        pred_class=np.argmax(result)
+        ai_style =style_name[pred_class] #Street
+        img_str = request.json['image']
     return pil_random_img
 ```
 
